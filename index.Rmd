@@ -4,17 +4,11 @@ subtitle: "Técnicas de agrupamento"
 author: "Tarssio"
 date: "2025-09-03"
 output:
-  html_document:
-    toc: true
-    toc_float: true
-    number_sections: true
-    theme: cosmo
-    highlight: tango
-    code_folding: hide   # coloca um botão para mostrar/ocultar código
-    df_print: paged      # tabelas com paginação
-    self_contained: true
-    smooth_scroll: true
-    code_download: true  # (opcional) botão para baixar o .Rmd
+  distill::distill_article:
+    self_contained: false   # não embute dependências
+    toc: true               # ativa sumário lateral
+    toc_depth: 3            # profundidade do sumário (capítulos e subcapítulos)
+    code_folding: true      # botão para recolher/expandir código
 ---
 
 ```{r}
@@ -568,16 +562,17 @@ tab <- df_long |>
 DT::datatable(
   tab,
   rownames = FALSE,
-  fillContainer = TRUE,                 # ocupa o contêiner
+  fillContainer = TRUE,
+  width = "100%",
+  class = "compact stripe hover",
   options = list(
-    paging = FALSE,                     # mostra TODAS as linhas (as 10)
-    # ou, se preferir manter paginação:
-    # pageLength = nrow(tab), lengthChange = FALSE,
-    autoWidth = TRUE,                   # ajusta largura das colunas
-    scrollX = TRUE,                     # rolagem horizontal se precisar
-    info = FALSE, searching = FALSE     # limpa barra de info/busca (opcional)
-  ),
-  class = "compact stripe hover"
+    paging = FALSE,
+    autoWidth = TRUE,
+    scrollX = TRUE,
+    scrollY = "500px",   # <<< altura em pixels (aumente conforme necessário)
+    info = FALSE,
+    searching = FALSE
+  )
 )
 
 ```
